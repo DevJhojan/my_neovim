@@ -185,3 +185,10 @@ vim.fn.mkdir(non_django_git_root .. "/.git", "p")
 local non_django_script = assert(io.open(non_django_git_root .. "/script.py", "w"))
 non_django_script:write("")
 non_django_script:close()
+vim.cmd("edit " .. vim.fn.fnameescape(non_django_git_root .. "/script.py"))
+
+assert(
+  project_profile.get_profile(non_django_git_root) == nil,
+  "opening a project without manage.py should not persist a profile"
+)
+print("PASS: no_persiste_perfil_django_en_proyecto_sin_manage_py")
