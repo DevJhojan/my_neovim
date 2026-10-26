@@ -58,7 +58,7 @@ local function ensure_pyproject(project_root)
   return true
 end
 
-function M.ensure_dependencies(project_root, python)
+function M.ensure_declared(project_root)
   local requirements_path = project_root .. "/requirements.txt"
   local requirements = read_file(requirements_path)
   if requirements then
@@ -69,7 +69,9 @@ function M.ensure_dependencies(project_root, python)
     end
   end
   ensure_pyproject(project_root)
+end
 
+function M.install(project_root, python)
   vim.fn.system({ python, "-m", "pip", "install", "django-stubs" })
   if vim.v.shell_error ~= 0 then
     vim.notify("Failed to install django-stubs in " .. project_root, vim.log.levels.ERROR)

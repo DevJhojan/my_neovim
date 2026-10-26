@@ -28,13 +28,14 @@ function M.setup()
       if project_root and not notified_projects[project_root] then
         notified_projects[project_root] = true
         vim.notify("Django project detected: " .. project_root)
+        dependencies.ensure_declared(project_root)
         local python = project_root .. "/.venv/bin/python"
         if vim.fn.executable(python) == 1 then
-          dependencies.ensure_dependencies(project_root, python)
+          dependencies.install(project_root, python)
         else
           python = project_root .. "/venv/bin/python"
           if vim.fn.executable(python) == 1 then
-            dependencies.ensure_dependencies(project_root, python)
+            dependencies.install(project_root, python)
           else
             vim.notify("No project virtual environment found for " .. project_root, vim.log.levels.WARN)
           end

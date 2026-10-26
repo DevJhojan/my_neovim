@@ -131,3 +131,27 @@ local both_updated_pyproject = assert(io.open(both_root .. "/pyproject.toml", "r
 assert(both_updated_requirements:match("django%-stubs"), "requirements.txt should declare django-stubs")
 assert(both_updated_pyproject:match("django%-stubs"), "pyproject.toml should declare django-stubs")
 print("PASS: actualiza_ambos_manifiestos_si_existen")
+
+local no_venv_root = vim.fn.tempname()
+vim.fn.mkdir(no_venv_root, "p")
+local no_venv_manage_file = assert(io.open(no_venv_root .. "/manage.py", "w"))
+no_venv_manage_file:write("")
+no_venv_manage_file:close()
+local no_venv_requirements = assert(io.open(no_venv_root .. "/requirements.txt", "w"))
+no_venv_requirements:write("Django\n")
+no_venv_requirements:close()
+vim.fn.executable = function(path)
+  if path == no_venv_root .. "/.venv/bin/python" or path == no_venv_root .. "/venv/bin/python" then
+    return 0
+  end
+  return original_executable(path)
+end
+install_command = nil
+notified_message = nil
+vim.cmd("edit " .. vim.fn.fnameescape(no_venv_root .. "/manage.py"))
+
+local no_venv_updated = assert(io.open(no_venv_root .. "/requirements.txt", "r")):read("*a")
+assert(no_venv_updated:match("django%-stubs"), "requirements should still declare django-stubs")
+assert(install_command == nil, "dependencies should not be installed without a project virtualenv")
+assert(notified_message and notified_message:match("No project virtual environment"), "missing virtualenv should be reported")
+print("PASS: no_instala_si_no_hay_entorno_virtual_del_proyecto")
