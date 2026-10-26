@@ -3,6 +3,8 @@ Como desarrollador de Django, quiero que Neovim reconozca mis proyectos Django y
 
 ## Acceptance criteria
 - [x] Dado un proyecto Python con `manage.py`, cuando se abre en Neovim, entonces se reconoce y activa el perfil Django.
+- [x] Dado que `django-stubs` no está declarado en `requirements.txt` o en `[project].dependencies` de `pyproject.toml`, cuando se activa el perfil Django, entonces queda declarado e instalado en el entorno Python del proyecto, sin añadir entradas duplicadas.
+- [x] Dado un proyecto Django con el perfil activo, cuando se completa código Django, entonces el autocompletado incluye sus APIs; los proyectos Python que no son Django conservan el comportamiento actual.
 
 ## Plan
 - Detectar los proyectos Django mediante su marcador acordado.
