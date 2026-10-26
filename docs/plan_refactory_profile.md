@@ -3,7 +3,7 @@ Como mantenedor de la configuración de Neovim, quiero modularizar la gestión y
 
 ## Acceptance criteria
 - [ ] Dado el uso público actual de perfiles por proyecto, cuando se guarda, consulta o actualiza un perfil, entonces se conserva el comportamiento para repositorios normales y worktrees.
-- [ ] Dado el código de persistencia de perfiles, cuando se organiza por responsabilidades, entonces las responsabilidades pueden entenderse y mantenerse de forma independiente sin cambiar el uso público existente.
+- [x] Dado el código de persistencia de perfiles, cuando se organiza por responsabilidades, entonces las responsabilidades pueden entenderse y mantenerse de forma independiente sin cambiar el uso público existente.
 - [ ] Dado que se ejecutan las pruebas de perfiles, cuando se validan guardado inicial, restauración y reasignación, entonces los escenarios están organizados por comportamiento, sin duplicar preparación innecesaria, y pasan.
 
 ## Plan
