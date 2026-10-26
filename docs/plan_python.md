@@ -2,9 +2,9 @@
 Como usuario, quiero elegir y guardar un perfil de Python con autocompletado por proyecto al abrir un repositorio Git, para que Neovim cargue ese entorno en las próximas sesiones.
 
 ## Acceptance criteria
-- [ ] Dado un repositorio Git sin ningún perfil guardado, cuando lo abro, entonces puedo elegir un perfil de Python y guardar esa selección para asociarla al proyecto.
-- [ ] Dado un repositorio Git con un perfil de Python guardado, cuando lo abro nuevamente, entonces Neovim carga el entorno y el autocompletado de Python sin volver a pedirme que lo seleccione.
-- [ ] Dado que cambio o vuelvo a seleccionar el perfil de Python de un proyecto, cuando guardo la nueva elección, entonces la asociación del proyecto se actualiza y la próxima apertura del repositorio usa el perfil más reciente.
+- [x] Dado un repositorio Git sin ningún perfil guardado, cuando lo abro, entonces puedo elegir un perfil de Python y guardar esa selección para asociarla al proyecto.
+- [x] Dado un repositorio Git con un perfil de Python guardado, cuando lo abro nuevamente, entonces Neovim carga el entorno y el autocompletado de Python sin volver a pedirme que lo seleccione.
+- [x] Dado que cambio o vuelvo a seleccionar el perfil de Python de un proyecto, cuando guardo la nueva elección, entonces la asociación del proyecto se actualiza y la próxima apertura del repositorio usa el perfil más reciente.
 
 ## Plan
 - Confirmar cómo se detecta un repositorio Git al iniciar y cuándo se mostrará la selección al usuario.
