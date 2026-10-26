@@ -1,29 +1,74 @@
 local M = {}
 
-local function has_django_stubs(path)
+local function read_file(path)
   local file = io.open(path, "r")
   if not file then
-    return false
+    return nil
   end
 
-  for line in file:lines() do
-    local name = line:match("^%s*([%w_.-]+)")
-    if name and name:lower():gsub("_", "-") == "django-stubs" then
-      file:close()
+  local content = file:read("*a")
+  file:close()
+  return content
+end
+
+local function contains_django_stubs(dependencies)
+  for _, name in dependencies:gmatch("[\"']([^\"']+)[\"']") do
+    local package = name:match("^%s*([%w_.-]+)")
+    if package and package:lower():gsub("_", "-") == "django-stubs" then
       return true
     end
   end
 
-  file:close()
   return false
 end
 
-function M.ensure_requirements(project_root, python)
+local function ensure_pyproject(project_root)
+  local path = project_root .. "/pyproject.toml"
+  local content = read_file(path)
+  if not content then
+    return false
+  end
+
+  local project_start, project_end = content:find("%[project%][^\n]*\n")
+  if not project_start then
+    return false
+  end
+  project_end = content:find("\n%[", project_end + 1) or (#content + 1)
+  local section = content:sub(project_start, project_end - 1)
+  local key_start, array_start = section:find("dependencies%s*=%s*%[")
+  if key_start then
+    local array_end = section:find("%]", array_start + 1)
+    if not array_end then
+      error("Unsupported multiline dependencies array in " .. path)
+    end
+    local dependencies = section:sub(array_start + 1, array_end - 1)
+    if contains_django_stubs(dependencies) then
+      return true
+    end
+
+    local addition = dependencies:match("%S") and ', "django-stubs"' or '"django-stubs"'
+    section = section:sub(1, array_end - 1) .. addition .. section:sub(array_end)
+  else
+    section = section .. 'dependencies = ["django-stubs"]\n'
+  end
+
+  local file = assert(io.open(path, "w"))
+  file:write(content:sub(1, project_start - 1), section, content:sub(project_end))
+  file:close()
+  return true
+end
+
+function M.ensure_dependencies(project_root, python)
   local requirements_path = project_root .. "/requirements.txt"
-  if not has_django_stubs(requirements_path) then
-    local file = assert(io.open(requirements_path, "a"))
-    file:write("django-stubs\n")
-    file:close()
+  if read_file(requirements_path) then
+    local content = read_file(requirements_path)
+    if not content:lower():match("django[-_]stubs") then
+      local file = assert(io.open(requirements_path, "a"))
+      file:write("django-stubs\n")
+      file:close()
+    end
+  else
+    ensure_pyproject(project_root)
   end
 
   vim.fn.system({ python, "-m", "pip", "install", "django-stubs" })

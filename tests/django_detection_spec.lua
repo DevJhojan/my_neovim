@@ -59,3 +59,26 @@ assert(updated_requirements:match("django%-stubs"), "Django requirements should 
 assert(install_command, "Django dependencies should be installed")
 assert(install_command[1] == dependency_root .. "/.venv/bin/python", "installation should use the project virtualenv")
 print("PASS: declara_e_instala_django_stubs_en_requirements")
+
+local pyproject_root = vim.fn.tempname()
+vim.fn.mkdir(pyproject_root .. "/.venv/bin", "p")
+local pyproject_manage_file = assert(io.open(pyproject_root .. "/manage.py", "w"))
+pyproject_manage_file:write("")
+pyproject_manage_file:close()
+local pyproject_file = assert(io.open(pyproject_root .. "/pyproject.toml", "w"))
+pyproject_file:write('[project]\nname = "sample"\n')
+pyproject_file:close()
+vim.fn.executable = function(path)
+  if path == pyproject_root .. "/.venv/bin/python" then
+    return 1
+  end
+  return original_executable(path)
+end
+install_command = nil
+vim.cmd("edit " .. vim.fn.fnameescape(pyproject_root .. "/manage.py"))
+
+local updated_pyproject = assert(io.open(pyproject_root .. "/pyproject.toml", "r")):read("*a")
+assert(updated_pyproject:match('dependencies%s*=%s*%["django%-stubs"%]'), "PEP 621 dependencies should declare django-stubs")
+assert(install_command, "Django dependencies should be installed for pyproject projects")
+assert(install_command[1] == pyproject_root .. "/.venv/bin/python", "installation should use the pyproject virtualenv")
+print("PASS: declara_django_stubs_en_pyproject_pep621")
