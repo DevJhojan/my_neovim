@@ -82,3 +82,52 @@ assert(updated_pyproject:match('dependencies%s*=%s*%["django%-stubs"%]'), "PEP 6
 assert(install_command, "Django dependencies should be installed for pyproject projects")
 assert(install_command[1] == pyproject_root .. "/.venv/bin/python", "installation should use the pyproject virtualenv")
 print("PASS: declara_django_stubs_en_pyproject_pep621")
+
+local existing_pyproject_root = vim.fn.tempname()
+vim.fn.mkdir(existing_pyproject_root .. "/.venv/bin", "p")
+local existing_manage_file = assert(io.open(existing_pyproject_root .. "/manage.py", "w"))
+existing_manage_file:write("")
+existing_manage_file:close()
+local existing_pyproject_file = assert(io.open(existing_pyproject_root .. "/pyproject.toml", "w"))
+existing_pyproject_file:write('[project]\nname = "sample"\ndependencies = ["django-stubs>=5"]\n')
+existing_pyproject_file:close()
+vim.fn.executable = function(path)
+  if path == existing_pyproject_root .. "/.venv/bin/python" then
+    return 1
+  end
+  return original_executable(path)
+end
+install_command = nil
+vim.cmd("edit " .. vim.fn.fnameescape(existing_pyproject_root .. "/manage.py"))
+
+local existing_pyproject = assert(io.open(existing_pyproject_root .. "/pyproject.toml", "r")):read("*a")
+local _, stub_count = existing_pyproject:gsub("django%-stubs", "")
+assert(stub_count == 1, "PEP 621 dependencies should not duplicate django-stubs")
+assert(install_command, "existing Django dependencies should still be installed")
+print("PASS: no_duplica_django_stubs_en_pyproject_pep621")
+
+local both_root = vim.fn.tempname()
+vim.fn.mkdir(both_root .. "/.venv/bin", "p")
+local both_manage_file = assert(io.open(both_root .. "/manage.py", "w"))
+both_manage_file:write("")
+both_manage_file:close()
+local both_requirements = assert(io.open(both_root .. "/requirements.txt", "w"))
+both_requirements:write("Django\n")
+both_requirements:close()
+local both_pyproject = assert(io.open(both_root .. "/pyproject.toml", "w"))
+both_pyproject:write('[project]\nname = "sample"\ndependencies = ["Django"]\n')
+both_pyproject:close()
+vim.fn.executable = function(path)
+  if path == both_root .. "/.venv/bin/python" then
+    return 1
+  end
+  return original_executable(path)
+end
+install_command = nil
+vim.cmd("edit " .. vim.fn.fnameescape(both_root .. "/manage.py"))
+
+local both_updated_requirements = assert(io.open(both_root .. "/requirements.txt", "r")):read("*a")
+local both_updated_pyproject = assert(io.open(both_root .. "/pyproject.toml", "r")):read("*a")
+assert(both_updated_requirements:match("django%-stubs"), "requirements.txt should declare django-stubs")
+assert(both_updated_pyproject:match("django%-stubs"), "pyproject.toml should declare django-stubs")
+print("PASS: actualiza_ambos_manifiestos_si_existen")

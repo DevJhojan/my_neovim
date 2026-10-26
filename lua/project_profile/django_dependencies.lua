@@ -12,7 +12,7 @@ local function read_file(path)
 end
 
 local function contains_django_stubs(dependencies)
-  for _, name in dependencies:gmatch("[\"']([^\"']+)[\"']") do
+  for name in dependencies:gmatch("[\"']([^\"']+)[\"']") do
     local package = name:match("^%s*([%w_.-]+)")
     if package and package:lower():gsub("_", "-") == "django-stubs" then
       return true
@@ -60,16 +60,15 @@ end
 
 function M.ensure_dependencies(project_root, python)
   local requirements_path = project_root .. "/requirements.txt"
-  if read_file(requirements_path) then
-    local content = read_file(requirements_path)
-    if not content:lower():match("django[-_]stubs") then
+  local requirements = read_file(requirements_path)
+  if requirements then
+    if not requirements:lower():match("django[-_]stubs") then
       local file = assert(io.open(requirements_path, "a"))
       file:write("django-stubs\n")
       file:close()
     end
-  else
-    ensure_pyproject(project_root)
   end
+  ensure_pyproject(project_root)
 
   vim.fn.system({ python, "-m", "pip", "install", "django-stubs" })
   if vim.v.shell_error ~= 0 then
