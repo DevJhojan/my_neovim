@@ -155,3 +155,33 @@ assert(no_venv_updated:match("django%-stubs"), "requirements should still declar
 assert(install_command == nil, "dependencies should not be installed without a project virtualenv")
 assert(notified_message and notified_message:match("No project virtual environment"), "missing virtualenv should be reported")
 print("PASS: no_instala_si_no_hay_entorno_virtual_del_proyecto")
+
+local activation_root = vim.fn.tempname()
+vim.fn.mkdir(activation_root .. "/.git", "p")
+vim.fn.mkdir(activation_root .. "/.venv/bin", "p")
+local activation_manage_file = assert(io.open(activation_root .. "/manage.py", "w"))
+activation_manage_file:write("")
+activation_manage_file:close()
+local activation_requirements = assert(io.open(activation_root .. "/requirements.txt", "w"))
+activation_requirements:write("Django\ndjango-stubs\n")
+activation_requirements:close()
+vim.fn.executable = function(path)
+  if path == activation_root .. "/.venv/bin/python" then
+    return 1
+  end
+  return original_executable(path)
+end
+vim.cmd("edit " .. vim.fn.fnameescape(activation_root .. "/manage.py"))
+
+local project_profile = require("project_profile")
+assert(
+  project_profile.get_profile(activation_root) == "django",
+  "opening a Django project should persist the django profile"
+)
+print("PASS: persiste_perfil_django_al_abrir_proyecto_con_manage_py")
+
+local non_django_git_root = vim.fn.tempname()
+vim.fn.mkdir(non_django_git_root .. "/.git", "p")
+local non_django_script = assert(io.open(non_django_git_root .. "/script.py", "w"))
+non_django_script:write("")
+non_django_script:close()

@@ -1,6 +1,7 @@
 local M = {}
 local notified_projects = {}
 local dependencies = require("project_profile.django_dependencies")
+local project_profile = require("project_profile")
 
 local function find_django_root(path)
   local current_dir = vim.fn.fnamemodify(path, ":p:h")
@@ -27,6 +28,7 @@ function M.setup()
       local project_root = find_django_root(vim.api.nvim_buf_get_name(event.buf))
       if project_root and not notified_projects[project_root] then
         notified_projects[project_root] = true
+        project_profile.save_profile(project_root, "django")
         vim.notify("Django project detected: " .. project_root)
         dependencies.ensure_declared(project_root)
         local python = project_root .. "/.venv/bin/python"
