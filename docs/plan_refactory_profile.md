@@ -4,13 +4,12 @@ Como mantenedor de la configuración de Neovim, quiero modularizar la gestión y
 ## Acceptance criteria
 - [ ] Dado el uso público actual de perfiles por proyecto, cuando se guarda, consulta o actualiza un perfil, entonces se conserva el comportamiento para repositorios normales y worktrees.
 - [x] Dado el código de persistencia de perfiles, cuando se organiza por responsabilidades, entonces las responsabilidades pueden entenderse y mantenerse de forma independiente sin cambiar el uso público existente.
-- [ ] Dado que se ejecutan las pruebas de perfiles, cuando se validan guardado inicial, restauración y reasignación, entonces los escenarios están organizados por comportamiento, sin duplicar preparación innecesaria, y pasan.
+- [x] Dado que se ejecutan las pruebas de perfiles, cuando se validan guardado inicial, restauración y reasignación, entonces los escenarios están organizados por comportamiento, sin duplicar preparación innecesaria, y pasan.
 
 ## Plan
-- Identificar las responsabilidades existentes y sus dependencias.
-- Separar las piezas que tienen límites claros, conservando un punto de entrada para el uso actual.
-- Ordenar las pruebas por comportamiento y compartir solo la preparación común que reduzca duplicación.
-- Ejecutar las pruebas y confirmar que repositorios normales y worktrees mantienen el comportamiento.
+- Confirmar las responsabilidades ya separadas: `project_profile.lua` expone la API pública, `project_profile/git_dir.lua` resuelve repositorios y worktrees, y `project_profile/storage.lua` persiste los perfiles. Mantener esta estructura salvo que se encuentre una responsabilidad realmente mezclada.
+- Revisar si la organización actual de `tests/project_profile_spec.lua` y su fixture `tests/support/project_repo.lua` tienen duplicación que justifique un cambio; no mover ni abstraer pruebas sin una mejora concreta.
+- Ejecutar la suite existente y confirmar los escenarios de repositorio normal, worktree y reasignación.
 
 ## Out of scope
 - Implementar perfiles nuevos o sus configuraciones específicas.
