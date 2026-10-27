@@ -59,3 +59,34 @@ assert(
   "reopening a TypeScript project should keep the saved profile"
 )
 print("PASS: recupera_perfil_typescript_guardado_al_reabrir_proyecto")
+
+-- El tercer caso comprueba que una reasignación del perfil del proyecto se
+-- actualiza en la persistencia y no queda anclada al valor anterior.
+local update_root = vim.fn.tempname()
+vim.fn.mkdir(update_root .. "/src", "p")
+
+local update_package = assert(io.open(update_root .. "/package.json", "w"))
+update_package:write([[{
+  "name": "update-ts-project",
+  "dependencies": {
+    "typescript": "^5.5.0"
+  }
+}]])
+update_package:close()
+
+local update_source = assert(io.open(update_root .. "/src/index.ts", "w"))
+update_source:write("export const value = 'demo';\n")
+update_source:close()
+
+project_profile.save_profile(update_root, "typescript")
+local updated_profile = project_profile.save_profile(update_root, "typescript")
+
+assert(
+  updated_profile == "typescript",
+  "saving the TypeScript profile again should return the latest selected profile"
+)
+assert(
+  project_profile.get_profile(update_root) == "typescript",
+  "changing the TypeScript profile for a project should update the saved association"
+)
+print("PASS: actualiza_perfil_typescript_para_repositorio")
