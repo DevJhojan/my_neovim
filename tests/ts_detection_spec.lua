@@ -170,3 +170,36 @@ vim.cmd("edit " .. vim.fn.fnameescape(activated_root .. "/src/index.ts"))
 assert(enabled_servers[#enabled_servers] == "ts_ls", "loading the TypeScript profile should enable the TypeScript LSP server")
 vim.lsp.enable = original_enable
 print("PASS: activa_lsp_typescript_al_cargar_perfil")
+
+-- La siguiente prueba verifica que la activación del perfil TypeScript no rompa
+-- el estado de otros servidores LSP o perfiles ya configurados.
+local preserve_root = vim.fn.tempname()
+vim.fn.mkdir(preserve_root .. "/src", "p")
+
+local preserve_package = assert(io.open(preserve_root .. "/package.json", "w"))
+preserve_package:write([[{
+  "name": "preserve-ts-project",
+  "dependencies": {
+    "typescript": "^5.5.0"
+  }
+}]])
+preserve_package:close()
+
+local preserve_source = assert(io.open(preserve_root .. "/src/index.ts", "w"))
+preserve_source:write("export const ok = true;\n")
+preserve_source:close()
+
+local original_enable = vim.lsp.enable
+local enabled_servers = {}
+vim.lsp.enable = function(server)
+  enabled_servers[#enabled_servers + 1] = server
+end
+
+project_profile.save_profile(preserve_root, "typescript")
+local previous_servers = { "pyright", "ts_ls" }
+for _, server in ipairs(previous_servers) do
+  vim.lsp.enable(server)
+end
+
+ts_detection.setup()
+vim.cmd("edit " .. vim.fn.fnameescape(preserve_root .. "/src/index.ts"))
