@@ -82,6 +82,22 @@ local function ensure_profile(project_root)
   persist_selection("typescript")
 end
 
+-- Activa la configuración de TypeScript para el proyecto actual cuando el perfil
+-- almacenado coincide con "typescript".
+--
+-- Este paso permite que el editor habilite el LSP de TypeScript sin depender del
+-- valor de un perfil distinto o sin volver a pedir la decisión al usuario.
+local function activate_profile(project_root)
+  local profile = project_profile.get_profile(project_root)
+  if profile ~= "typescript" then
+    return
+  end
+
+  if vim.lsp and vim.lsp.enable then
+    vim.lsp.enable("ts_ls")
+  end
+end
+
 -- Registra la detección automática al entrar a un buffer.
 --
 -- Cuando se abre un archivo dentro de un proyecto TypeScript, se guarda el
@@ -96,6 +112,10 @@ function M.setup()
       if project_root and not detected_projects[project_root] then
         detected_projects[project_root] = true
         ensure_profile(project_root)
+      end
+
+      if project_root and project_profile.get_profile(project_root) == "typescript" then
+        activate_profile(project_root)
       end
     end,
   })

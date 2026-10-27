@@ -138,3 +138,35 @@ assert(save_calls[#save_calls][2] == "typescript", "the persisted project profil
 vim.ui.select = original_ui_select
 project_profile.save_profile = original_save
 print("PASS: selecciona_y_persiste_perfil_typescript_si_no_existe")
+
+-- La siguiente prueba valida que, al cargar un proyecto TypeScript, el LSP de
+-- TypeScript se habilite para ese proyecto y no requiera una reelección.
+local activated_root = vim.fn.tempname()
+vim.fn.mkdir(activated_root .. "/src", "p")
+
+local activated_package = assert(io.open(activated_root .. "/package.json", "w"))
+activated_package:write([[{
+  "name": "activated-ts-project",
+  "dependencies": {
+    "typescript": "^5.5.0"
+  }
+}]])
+activated_package:close()
+
+local activated_source = assert(io.open(activated_root .. "/src/index.ts", "w"))
+activated_source:write("export const x = 'ok';\n")
+activated_source:close()
+
+local original_enable = vim.lsp.enable
+local enabled_servers = {}
+vim.lsp.enable = function(server)
+  enabled_servers[#enabled_servers + 1] = server
+end
+
+project_profile.save_profile(activated_root, "typescript")
+ts_detection.setup()
+vim.cmd("edit " .. vim.fn.fnameescape(activated_root .. "/src/index.ts"))
+
+assert(enabled_servers[#enabled_servers] == "ts_ls", "loading the TypeScript profile should enable the TypeScript LSP server")
+vim.lsp.enable = original_enable
+print("PASS: activa_lsp_typescript_al_cargar_perfil")
