@@ -31,3 +31,31 @@ assert(
   "opening a TypeScript project should persist the typescript profile"
 )
 print("PASS: persiste_perfil_typescript_al_abrir_proyecto_con_package_json")
+
+-- El segundo caso verifica que un proyecto TypeScript ya asociado recuerde su perfil
+-- al reabrirse, sin requerir una nueva elección.
+local saved_root = vim.fn.tempname()
+vim.fn.mkdir(saved_root .. "/src", "p")
+
+local saved_package = assert(io.open(saved_root .. "/package.json", "w"))
+saved_package:write([[{
+  "name": "saved-ts-project",
+  "dependencies": {
+    "typescript": "^5.5.0"
+  }
+}]])
+saved_package:close()
+
+local saved_source = assert(io.open(saved_root .. "/src/index.ts", "w"))
+saved_source:write("export const ok = true;\n")
+saved_source:close()
+
+project_profile.save_profile(saved_root, "typescript")
+ts_detection.setup()
+vim.cmd("edit " .. vim.fn.fnameescape(saved_root .. "/src/index.ts"))
+
+assert(
+  project_profile.get_profile(saved_root) == "typescript",
+  "reopening a TypeScript project should keep the saved profile"
+)
+print("PASS: recupera_perfil_typescript_guardado_al_reabrir_proyecto")
