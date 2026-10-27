@@ -10,4 +10,5 @@ Decisiones costosas: ninguna.
 4. Como usuario de React Native, quiero un perfil con autocompletado, para trabajar en aplicaciones móviles. Requiere: #1
 5. Como usuario de React, quiero un perfil con autocompletado, para trabajar en proyectos React. Requiere: #1
 6. Como usuario de Bash, quiero un perfil con autocompletado, para trabajar en scripts de shell. Requiere: #1
-7. Como usuario de Neovim, quiero una interfaz visual tipo cyberpunk con colores rojos, para que el editor se vea atractivo y me ayude a concentrarme.
+7. Como usuario, quiero que al abrir un repositorio sin perfil asociado se me ofrezca la selección del perfil correcto para ese proyecto y quede guardado para futuras sesiones. Requiere: #1
+8. Como usuario de Neovim, quiero una interfaz visual tipo cyberpunk con colores rojos, para que el editor se vea atractivo y me ayude a concentrarme.
