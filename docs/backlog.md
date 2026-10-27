@@ -1,6 +1,6 @@
 ## Context
-Entorno personal de Neovim que selecciona y recuerda un perfil de trabajo por cada proyecto con `.git`. El menú ofrecerá perfiles de Python, Django, TypeScript, React Native, React y Bash; el código se organizará de forma modular y cada módulo tendrá sus pruebas. Además, quiero una interfaz visual con estilo cyberpunk en tonos rojos para que el editor se vea atractivo y cómodo de usar.
-Stack: Neovim y Lua. Framework de pruebas de Lua pendiente de elegir.
+Configuración personal de Neovim para elegir y recordar un perfil de trabajo por repositorio, con el autocompletado adecuado para cada proyecto y una interfaz visual cyberpunk en tonos rojos.
+Stack: Neovim y Lua. Framework de pruebas: pendiente de elegir.
 Decisiones costosas: ninguna.
 
 ## Backlog
