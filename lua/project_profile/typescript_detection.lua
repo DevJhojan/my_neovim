@@ -54,6 +54,34 @@ local function find_typescript_root(path)
   end
 end
 
+-- Guarda el perfil del proyecto después de que el usuario lo elige.
+--
+-- Si ya existe una asociación previa, se conserva; si no, se pide una selección
+-- sencilla con vim.ui.select para no forzar el valor sin confirmación.
+local function ensure_profile(project_root)
+  if project_profile.get_profile(project_root) then
+    return
+  end
+
+  local function persist_selection(choice)
+    local profile = choice or "typescript"
+    project_profile.save_profile(project_root, profile)
+    vim.notify("TypeScript project detected: " .. project_root)
+  end
+
+  if vim.ui and vim.ui.select then
+    vim.ui.select({ "typescript" }, {
+      prompt = "Select project profile for TypeScript",
+      kind = "project_profile",
+    }, function(choice)
+      persist_selection(choice)
+    end)
+    return
+  end
+
+  persist_selection("typescript")
+end
+
 -- Registra la detección automática al entrar a un buffer.
 --
 -- Cuando se abre un archivo dentro de un proyecto TypeScript, se guarda el
@@ -67,8 +95,7 @@ function M.setup()
       local project_root = find_typescript_root(vim.api.nvim_buf_get_name(event.buf))
       if project_root and not detected_projects[project_root] then
         detected_projects[project_root] = true
-        project_profile.save_profile(project_root, "typescript")
-        vim.notify("TypeScript project detected: " .. project_root)
+        ensure_profile(project_root)
       end
     end,
   })
