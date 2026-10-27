@@ -2,7 +2,7 @@
 Como usuario de TypeScript, quiero un perfil con autocompletado para trabajar en proyectos TypeScript, para que pueda desarrollar en repositorios Git sin reconfigurar el entorno en cada sesión.
 
 ## Acceptance criteria
-- [ ] Dado un repositorio Git sin un perfil de TypeScript guardado, cuando lo abro, entonces puedo elegir el perfil adecuado y guardar esa selección para asociarla al proyecto.
+- [x] Dado un repositorio Git sin un perfil de TypeScript guardado, cuando lo abro, entonces puedo elegir el perfil adecuado y guardar esa selección para asociarla al proyecto.
 - [ ] Dado un repositorio Git con un perfil de TypeScript guardado, cuando lo abro de nuevo, entonces Neovim carga automáticamente el entorno de autocompletado de TypeScript sin pedirme que lo elija otra vez.
 - [ ] Dado que cambio la selección de perfil de TypeScript para un proyecto, cuando guardo la nueva elección, entonces la asociación del repositorio se actualiza y la próxima apertura usa el perfil más reciente.
 
