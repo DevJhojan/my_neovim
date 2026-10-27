@@ -203,3 +203,9 @@ end
 
 ts_detection.setup()
 vim.cmd("edit " .. vim.fn.fnameescape(preserve_root .. "/src/index.ts"))
+
+assert(vim.lsp.enable ~= nil, "LSP activation should remain available after enabling TypeScript")
+assert(enabled_servers[#enabled_servers] == "ts_ls", "TypeScript activation should still enable the TS server")
+assert(#enabled_servers >= 2, "other enabled servers should remain available while TypeScript is activated")
+vim.lsp.enable = original_enable
+print("PASS: no_desactiva_otros_perfiles_al_activar_typescript")
