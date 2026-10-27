@@ -21,3 +21,8 @@ Como usuario de TypeScript, quiero un perfil con autocompletado para trabajar en
 
 ## Suggestions (your call)
 - Si el flujo de selección y restauración se repite en futuros perfiles, conviene centralizar la decisión de “qué perfil cargar para este repositorio” en un único punto para evitar duplicación y mantener consistencia.
+
+## Tarea pendiente
+- Definir y activar el flujo de selección del perfil TypeScript cuando un repositorio no tiene una asociación guardada.
+- Conectar ese perfil con la configuración real del entorno/autocompletado de TypeScript en Neovim.
+- Validar la experiencia de usuario en un repositorio sin perfil, con perfil guardado y con reasignación del mismo.
