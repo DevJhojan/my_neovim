@@ -2,9 +2,9 @@
 Como usuario, quiero seleccionar y guardar un perfil de trabajo para cada repositorio y que Neovim lo recuerde al volver a abrirlo, para mantener asociado el perfil correcto a cada proyecto.
 
 ## Acceptance criteria
-- [ ] Dado que un repositorio no tiene un perfil guardado, cuando el usuario elige un perfil de trabajo, entonces Neovim lo guarda para ese proyecto y lo aplica de inmediato.
-- [ ] Dado que un repositorio ya tiene un perfil guardado, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin pedir la selección otra vez.
-- [ ] Dado que un usuario cambia de perfil en un repositorio, cuando confirma la nueva elección, entonces la nueva configuración reemplaza la anterior y queda recordada para futuras aperturas.
+- [x] Dado que un repositorio no tiene un perfil guardado, cuando el usuario elige un perfil de trabajo, entonces Neovim lo guarda para ese proyecto y lo aplica de inmediato.
+- [x] Dado que un repositorio ya tiene un perfil guardado, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin pedir la selección otra vez.
+- [x] Dado que un usuario cambia de perfil en un repositorio, cuando confirma la nueva elección, entonces la nueva configuración reemplaza la anterior y queda recordada para futuras aperturas.
 
 ## Plan
 - Identificar el punto mínimo en el que Neovim puede reconocer el repositorio activo.
