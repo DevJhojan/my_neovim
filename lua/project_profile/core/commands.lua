@@ -1,9 +1,11 @@
 -- Comandos de usuario de acceso directo para elegir o limpiar el perfil.
+-- Este módulo registra los comandos de Neovim y delega la lógica a otros módulos.
 
 local repository = require("project_profile.core.repository")
 
 local M = {}
 
+-- Registra los comandos para seleccionar y limpiar el perfil del repositorio actual.
 function M.setup(manager)
   vim.api.nvim_create_user_command("ProjectProfileSelect", function()
     manager.prompt_for_profile()
