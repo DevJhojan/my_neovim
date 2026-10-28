@@ -2,7 +2,7 @@
 -- Cargar opciones básicas y atajos antes de los plugins
 require("config.options")
 require("config.keymaps")
-require("project_profile.django_detection").setup()
+require("project_profile.manager").setup()
 
 -- Bootstrap (instalación automática) de lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
