@@ -6,4 +6,4 @@ local keymap = vim.keymap.set
 -- Guardar archivo rápido con <leader> + w
 keymap("n", "<leader>w", ":w<CR>", { desc = "Guardar archivo" })
 keymap("n", "<leader>q", ":q<CR>", { desc = "Cerrar archivo" })
-keymap("n", "<leader>p", ":ProjectProfileSelect<CR>", { desc = "Cerrar archivo" })
+keymap("n", "<leader>p", ":ProjectProfileSelect<CR>", { desc = "Selecciona un perfil para programar" })
