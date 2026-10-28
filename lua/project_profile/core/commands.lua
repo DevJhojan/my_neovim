@@ -6,6 +6,7 @@ local repository = require("project_profile.core.repository")
 local M = {}
 
 -- Registra los comandos para seleccionar y limpiar el perfil del repositorio actual.
+-- @param manager table API pública del gestor, usada para abrir el selector de perfiles.
 function M.setup(manager)
   vim.api.nvim_create_user_command("ProjectProfileSelect", function()
     manager.prompt_for_profile()
