@@ -16,6 +16,13 @@ function M.get_profile(repo_path)
   return repository.get_profile(repo_path)
 end
 
+-- Obtiene la configuración asociada a un perfil concreto.
+-- @param profile_name string Nombre del perfil.
+-- @return table Configuración del perfil.
+function M.get_profile_config(profile_name)
+  return repository.get_profile_config(profile_name)
+end
+
 -- Guarda un perfil para una ruta y lo activa en la sesión actual.
 -- @param profile_name string Nombre del perfil.
 -- @param repo_path string|nil Ruta del repositorio; si se omite, usa la ruta actual.

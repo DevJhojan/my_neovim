@@ -25,4 +25,12 @@ assert(manager.get_profile(repo_path) == first_profile, "expected first profile 
 manager.set_profile(second_profile, repo_path)
 assert(manager.get_profile(repo_path) == second_profile, "expected replaced profile to be saved")
 
+-- Verifica la configuración específica del perfil de Python.
+local python_profile = manager.get_profile_config("python")
+assert(python_profile ~= nil, "expected python profile config to exist")
+assert(python_profile.completion == "pyright", "expected pyright as python completion provider")
+assert(python_profile.theme.yellow == 60, "expected python theme yellow proportion to be 60")
+assert(python_profile.theme.blue == 30, "expected python theme blue proportion to be 30")
+assert(python_profile.theme.white == 10, "expected python theme white proportion to be 10")
+
 print("project_profile_manager_spec: ok")

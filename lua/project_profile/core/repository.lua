@@ -4,10 +4,10 @@
 -- commands.lua.
 
 local storage = require("project_profile.core.storage")
+local themes = require("project_profile.core.themes")
 
 local M = {}
 
--- Definición de perfiles admitidos por el sistema.
 M.DEFAULT_PROFILES = {
   "default",
   "python",
@@ -20,8 +20,22 @@ M.DEFAULT_PROFILES = {
   "godot",
 }
 
--- Lista configurable de perfiles disponibles.
+M.PROFILES = themes
 M.available_profiles = M.DEFAULT_PROFILES
+
+function M.get_profile_config(profile_name)
+  local profile = M.PROFILES[profile_name or "default"]
+  return profile or M.PROFILES.default
+end
+
+function M.apply_profile_config(profile_name)
+  local profile = M.get_profile_config(profile_name)
+  vim.g.project_profile = profile.name
+  vim.g.project_profile_config = profile
+  vim.g.project_profile_theme = profile.theme
+  vim.g.project_profile_completion = profile.completion
+  return profile
+end
 
 -- Normaliza la clave del repositorio usando la ruta actual si no se pasa una.
 local function get_repo_key(repo_path)
@@ -46,7 +60,7 @@ function M.set_profile(profile_name, repo_path)
   local state = storage.read_state()
   state[repo_key] = profile_name
   storage.write_state(state)
-  vim.g.project_profile = profile_name
+  M.apply_profile_config(profile_name)
   return profile_name
 end
 
@@ -69,11 +83,11 @@ end
 function M.restore_current_repo()
   local profile_name = M.get_profile(vim.fn.getcwd())
   if profile_name then
-    vim.g.project_profile = profile_name
+    M.apply_profile_config(profile_name)
     return profile_name
   end
 
-  vim.g.project_profile = "default"
+  M.apply_profile_config("default")
   return "default"
 end
 
