@@ -33,4 +33,22 @@ assert(python_profile.theme.yellow == 60, "expected python theme yellow proporti
 assert(python_profile.theme.blue == 30, "expected python theme blue proportion to be 30")
 assert(python_profile.theme.white == 10, "expected python theme white proportion to be 10")
 
+-- Simula una sesión nueva en el repositorio y verifica la restauración del perfil.
+local original_cwd = vim.fn.getcwd()
+vim.fn.mkdir(repo_path, "p")
+manager.set_profile(first_profile, repo_path)
+vim.cmd("cd " .. vim.fn.fnameescape(repo_path))
+vim.g.project_profile = nil
+vim.g.project_profile_config = nil
+vim.g.project_profile_theme = nil
+vim.g.project_profile_completion = nil
+
+manager.restore_current_repo()
+assert(vim.g.project_profile == first_profile, "expected python profile to be restored")
+assert(vim.g.project_profile_completion == "pyright", "expected python completion to be restored")
+assert(vim.g.project_profile_theme.yellow == 60, "expected python theme to be restored")
+
+vim.cmd("cd " .. vim.fn.fnameescape(original_cwd))
+manager.clear_repo_profile(repo_path)
+
 print("project_profile_manager_spec: ok")
