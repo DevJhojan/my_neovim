@@ -4,7 +4,7 @@ Como usuario de Python, quiero elegir un perfil de Python con autocompletado y u
 ## Acceptance criteria
 - [X] Dado que un repositorio no tiene un perfil guardado, cuando el usuario elige el perfil de Python, entonces Neovim aplica el autocompletado específico de Python y un tema visual propio para ese proyecto con una proporción de 60% amarillo, 30% azul y 10% blanco.
 - [X] Dado que un repositorio ya tiene guardado el perfil de Python, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin requerir que vuelva a seleccionarlo.
-- [ ] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil de Python deja de aplicarse en ese proyecto y queda reemplazado por la nueva configuración seleccionada.
+- [x] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil de Python deja de aplicarse en ese proyecto y queda reemplazado por la nueva configuración seleccionada.
 
 ## Plan
 - Confirmar cómo se restaura la elección del perfil cuando el repositorio se abre de nuevo.
