@@ -30,7 +30,7 @@ end
 
 function M.apply_profile_config(profile_name)
   local profile = M.get_profile_config(profile_name)
-  vim.g.project_profile = profile.name
+  vim.g.project_profile = profile_name or profile.name
   vim.g.project_profile_config = profile
   vim.g.project_profile_theme = profile.theme
   vim.g.project_profile_completion = profile.completion

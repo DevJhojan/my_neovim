@@ -24,6 +24,7 @@ assert(manager.get_profile(repo_path) == first_profile, "expected first profile 
 -- Verifica que una nueva selección reemplace la anterior.
 manager.set_profile(second_profile, repo_path)
 assert(manager.get_profile(repo_path) == second_profile, "expected replaced profile to be saved")
+assert(vim.g.project_profile == second_profile, "expected the newly selected profile to be active")
 
 -- Verifica la configuración específica del perfil de Python.
 local python_profile = manager.get_profile_config("python")
