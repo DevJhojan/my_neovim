@@ -26,6 +26,18 @@ manager.set_profile(second_profile, repo_path)
 assert(manager.get_profile(repo_path) == second_profile, "expected replaced profile to be saved")
 assert(vim.g.project_profile == second_profile, "expected the newly selected profile to be active")
 
+-- Verifica que el perfil de Django puede guardarse y activarse como selección del repositorio.
+manager.clear_repo_profile(repo_path)
+manager.set_profile("django", repo_path)
+assert(manager.get_profile(repo_path) == "django", "expected django profile to be saved")
+assert(vim.g.project_profile == "django", "expected django profile to become active")
+local django_profile = manager.get_profile_config("django")
+assert(django_profile ~= nil, "expected django profile config to exist")
+assert(django_profile.completion == "django", "expected django completion provider to be set")
+assert(django_profile.theme.orange == 60, "expected django theme orange proportion to be 60")
+assert(django_profile.theme.green == 30, "expected django theme green proportion to be 30")
+assert(django_profile.theme.white == 10, "expected django theme white proportion to be 10")
+
 -- Verifica la configuración específica del perfil de Python.
 local python_profile = manager.get_profile_config("python")
 assert(python_profile ~= nil, "expected python profile config to exist")

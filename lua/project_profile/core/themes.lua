@@ -20,4 +20,14 @@ M.python = {
   },
 }
 
+M.django = {
+  name = "django",
+  completion = "django",
+  theme = {
+    orange = 60,
+    green = 30,
+    white = 10,
+  },
+}
+
 return M
