@@ -11,6 +11,8 @@
 local manager = require("project_profile.manager")
 
 local repo_path = "/tmp/project-profile-manager-spec"
+local first_profile = "python"
+local second_profile = "typescript"
 local python_profile = "python"
 local django_profile = "django"
 
@@ -53,6 +55,15 @@ assert(vim.g.project_profile_completion == "django", "expected django completion
 assert(vim.g.project_profile_theme.orange == 60, "expected django theme to be restored")
 vim.cmd("cd " .. vim.fn.fnameescape(original_cwd_restore))
 manager.clear_repo_profile(repo_path)
+
+-- Verifica que cambiar de perfil reemplaza la configuración previa de Django.
+local swap_repo = "/tmp/project-django-replace-spec"
+manager.clear_repo_profile(swap_repo)
+manager.set_profile("django", swap_repo)
+manager.set_profile("typescript", swap_repo)
+assert(manager.get_profile(swap_repo) == "typescript", "expected new profile to replace previous django profile")
+assert(vim.g.project_profile == "typescript", "expected typescript profile to stay active after replacement")
+manager.clear_repo_profile(swap_repo)
 
 -- Verifica la configuración específica del perfil de Python.
 local python_profile = manager.get_profile_config("python")
