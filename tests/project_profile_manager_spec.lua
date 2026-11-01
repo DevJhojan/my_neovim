@@ -11,8 +11,8 @@
 local manager = require("project_profile.manager")
 
 local repo_path = "/tmp/project-profile-manager-spec"
-local first_profile = "python"
-local second_profile = "typescript"
+local python_profile = "python"
+local django_profile = "django"
 
 -- Asegura un estado limpio antes de iniciar la prueba.
 manager.clear_repo_profile(repo_path)
@@ -38,6 +38,22 @@ assert(django_profile.theme.orange == 60, "expected django theme orange proporti
 assert(django_profile.theme.green == 30, "expected django theme green proportion to be 30")
 assert(django_profile.theme.white == 10, "expected django theme white proportion to be 10")
 
+-- Verifica la restauración automática del perfil de Django al reabrir el repositorio.
+local original_cwd_restore = vim.fn.getcwd()
+vim.fn.mkdir(repo_path, "p")
+manager.set_profile(django_profile, repo_path)
+vim.cmd("cd " .. vim.fn.fnameescape(repo_path))
+vim.g.project_profile = nil
+vim.g.project_profile_config = nil
+vim.g.project_profile_theme = nil
+vim.g.project_profile_completion = nil
+manager.restore_current_repo()
+assert(vim.g.project_profile == django_profile, "expected django profile to be restored on repo reopen")
+assert(vim.g.project_profile_completion == "django", "expected django completion to be restored")
+assert(vim.g.project_profile_theme.orange == 60, "expected django theme to be restored")
+vim.cmd("cd " .. vim.fn.fnameescape(original_cwd_restore))
+manager.clear_repo_profile(repo_path)
+
 -- Verifica la configuración específica del perfil de Python.
 local python_profile = manager.get_profile_config("python")
 assert(python_profile ~= nil, "expected python profile config to exist")
@@ -49,7 +65,7 @@ assert(python_profile.theme.white == 10, "expected python theme white proportion
 -- Simula una sesión nueva en el repositorio y verifica la restauración del perfil.
 local original_cwd = vim.fn.getcwd()
 vim.fn.mkdir(repo_path, "p")
-manager.set_profile(first_profile, repo_path)
+manager.set_profile(python_profile, repo_path)
 vim.cmd("cd " .. vim.fn.fnameescape(repo_path))
 vim.g.project_profile = nil
 vim.g.project_profile_config = nil
@@ -57,7 +73,7 @@ vim.g.project_profile_theme = nil
 vim.g.project_profile_completion = nil
 
 manager.restore_current_repo()
-assert(vim.g.project_profile == first_profile, "expected python profile to be restored")
+assert(vim.g.project_profile == python_profile, "expected python profile to be restored")
 assert(vim.g.project_profile_completion == "pyright", "expected python completion to be restored")
 assert(vim.g.project_profile_theme.yellow == 60, "expected python theme to be restored")
 
