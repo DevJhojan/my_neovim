@@ -2,9 +2,9 @@
 Como usuario de Django, quiero activar un perfil con autocompletado específico para Django y un tema propio para cada repositorio, para trabajar con asistencia contextual sin reconfigurar el editor.
 
 ## Acceptance criteria
-- [ ] Dado que un repositorio no tiene un perfil de Django guardado, cuando el usuario elige el perfil de Django, entonces Neovim aplica el autocompletado específico de Django y un tema visual propio para ese proyecto con una proporción de 60% Naranja, 30% Verde y 10% blanco.
-- [ ] Dado que un repositorio ya tiene guardado el perfil de Django, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin requerir que vuelva a seleccionarlo.
-- [ ] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil de Django deja de aplicarse en ese proyecto y queda reemplazado por la nueva configuración seleccionada.
+- [x] Dado que un repositorio no tiene un perfil de Django guardado, cuando el usuario elige el perfil de Django, entonces Neovim aplica el autocompletado específico de Django y un tema visual propio para ese proyecto con una proporción de 60% Naranja, 30% Verde y 10% blanco.
+- [x] Dado que un repositorio ya tiene guardado el perfil de Django, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin requerir que vuelva a seleccionarlo.
+- [x] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil de Django deja de aplicarse en ese proyecto y queda reemplazado por la nueva configuración seleccionada.
 
 ## Plan
 - Confirmar el flujo de restauración del perfil por repositorio ya usado en el proyecto.
