@@ -3,7 +3,7 @@ Como usuario de Bash, quiero elegir un perfil con autocompletado y tema propios 
 
 ## Acceptance criteria
 - [x] Dado que un repositorio no tiene un perfil Bash guardado, cuando el usuario lo elige, entonces Neovim activa autocompletado para Bash y aplica una paleta con fondo `#16141F` (60%), texto `#E0DEF4` (30%) y acento `#9CCFD8` (10%).
-- [ ] Dado que un repositorio ya tiene guardado el perfil Bash, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil.
+- [x] Dado que un repositorio ya tiene guardado el perfil Bash, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil.
 - [ ] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil Bash deja de aplicarse allí y queda reemplazado por la configuración seleccionada.
 
 ## Plan
