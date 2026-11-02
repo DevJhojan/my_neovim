@@ -9,8 +9,8 @@ Decisiones costosas: ninguna.
 3. [ok]Como usuario de Django, quiero activar un perfil con autocompletado para sus interfaces de programación y un tema propio, para trabajar con asistencia contextual en mis proyectos Django. Requiere: #2
 4. [ok]Como usuario de TypeScript, quiero elegir un perfil con autocompletado y tema propios, para trabajar en mis repositorios sin volver a configurar el editor. Requiere: #1
 5. [ok]Como usuario de React, quiero elegir un perfil con autocompletado y tema propios, para desarrollar aplicaciones React. Requiere: #1
-6. Como usuario de React Native, quiero elegir un perfil con autocompletado y tema propios, para desarrollar aplicaciones móviles. Requiere: #1
-7. Como usuario de Bash, quiero elegir un perfil con autocompletado y tema propios, para trabajar con asistencia contextual en mis scripts. Requiere: #1
+6. [ok]Como usuario de React Native, quiero elegir un perfil con autocompletado y tema propios, para desarrollar aplicaciones móviles. Requiere: #1
+7. [ok]Como usuario de Bash, quiero elegir un perfil con autocompletado y tema propios, para trabajar con asistencia contextual en mis scripts. Requiere: #1
 8. Como usuario de Rust, quiero elegir un perfil con autocompletado y tema propios, para desarrollar en Rust. Requiere: #1
 9. Como usuario de Godot, quiero elegir un perfil con soporte para GDScript y archivos de escena, además de un tema propio, para trabajar en mis proyectos de Godot. Requiere: #1
 10. Como usuario de Neovim, quiero que el perfil predeterminado tenga una interfaz visual cyberpunk en tonos rojos, para contar con un tema distintivo cuando no elija otro perfil. Requiere: #1
