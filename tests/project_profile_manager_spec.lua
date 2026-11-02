@@ -8,6 +8,8 @@ local specs = {
   "tests/python_profile_manager_spec/restore_profile_spec.lua",
   "tests/django_profile_manager_spec/save_profile_spec.lua",
   "tests/django_profile_manager_spec/restore_profile_spec.lua",
+  "tests/typescript_profile_manager_spec/save_profile_spec.lua",
+  "tests/typescript_profile_manager_spec/restore_profile_spec.lua",
   "tests/project_profile_manager_spec/replacement_spec.lua",
 }
 

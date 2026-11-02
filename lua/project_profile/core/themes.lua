@@ -30,4 +30,14 @@ M.django = {
   },
 }
 
+M.typescript = {
+  name = "typescript",
+  completion = "ts_ls",
+  theme = {
+    blue = 60,
+    cyan = 30,
+    white = 10,
+  },
+}
+
 return M

@@ -18,3 +18,18 @@ assert(vim.g.project_profile == "typescript", "expected typescript profile to st
 
 manager.clear_repo_profile(repo_path)
 print("profile replacement: ok")
+
+-- Verifica que una nueva elección sustituya el perfil TypeScript guardado
+-- y aplique la configuración del perfil seleccionado.
+local typescript_repo_path = "/tmp/typescript-profile-replacement-spec"
+manager.clear_repo_profile(typescript_repo_path)
+manager.set_profile("typescript", typescript_repo_path)
+manager.set_profile("django", typescript_repo_path)
+
+assert(manager.get_profile(typescript_repo_path) == "django", "expected django profile to replace typescript")
+assert(vim.g.project_profile == "django", "expected django profile to become active after replacement")
+assert(vim.g.project_profile_completion == "django", "expected replacement completion to be applied")
+assert(vim.g.project_profile_theme.orange == 60, "expected replacement theme to be applied")
+
+manager.clear_repo_profile(typescript_repo_path)
+print("typescript profile replacement: ok")
