@@ -72,8 +72,8 @@ function M.clear_repo_profile(repo_path)
   state[repo_key] = nil
   storage.write_state(state)
 
-  if vim.g.project_profile == M.get_profile(repo_key) then
-    vim.g.project_profile = nil
+  if repo_key == vim.fn.getcwd() then
+    M.apply_profile_config("default")
   end
 end
 

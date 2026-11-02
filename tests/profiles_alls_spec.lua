@@ -40,4 +40,19 @@ for index, case in ipairs(replacements) do
   manager.clear_repo_profile(repo_path)
 end
 
+-- Comprueba que limpiar el perfil activo del repositorio restaure el perfil predeterminado.
+local original_cwd = vim.fn.getcwd()
+local clear_repo_path = "/tmp/profile-clear-active-spec"
+manager.clear_repo_profile(clear_repo_path)
+vim.fn.mkdir(clear_repo_path, "p")
+vim.cmd("cd " .. vim.fn.fnameescape(clear_repo_path))
+manager.set_profile("react-native", clear_repo_path)
+manager.clear_repo_profile(clear_repo_path)
+assert(vim.g.project_profile == "default", "expected default profile after clearing active profile")
+assert(vim.g.project_profile_completion == "none", "expected default completion after clearing active profile")
+assert(vim.g.project_profile_theme.black == 60, "expected default theme after clearing active profile")
+assert(vim.g.project_profile_theme.Red == 30, "expected default red theme proportion after clearing active profile")
+assert(vim.g.project_profile_theme.white == 10, "expected default white theme proportion after clearing active profile")
+vim.cmd("cd " .. vim.fn.fnameescape(original_cwd))
+
 print("profiles_alls_spec: ok")
