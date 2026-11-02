@@ -3,7 +3,7 @@ Como usuario de React Native, quiero elegir un perfil con autocompletado y tema 
 
 ## Acceptance criteria
 - [x] Dado que un repositorio no tiene un perfil React Native guardado, cuando el usuario lo elige, entonces Neovim activa el autocompletado de TypeScript/JavaScript y aplica un tema de azul 60%, púrpura 30% y blanco 10%.
-- [ ] Dado que un repositorio ya tiene guardado el perfil React Native, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil.
+- [x] Dado que un repositorio ya tiene guardado el perfil React Native, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil.
 - [ ] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil React Native deja de aplicarse allí y queda reemplazado por la configuración seleccionada.
 
 ## Plan
