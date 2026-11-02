@@ -20,6 +20,13 @@ return function(profile)
   for color, proportion in pairs(profile.theme) do
     assert(vim.g.project_profile_theme[color] == proportion, "unexpected restored " .. color .. " theme proportion")
   end
+  if profile.name == "godot" then
+    local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+    local keyword = vim.api.nvim_get_hl(0, { name = "Keyword" })
+    assert(normal.bg == 0x141B26, "expected restored Godot background")
+    assert(normal.fg == 0xE3EAF2, "expected restored Godot foreground")
+    assert(keyword.fg == 0x5FD4F4, "expected restored Godot keyword accent")
+  end
 
   vim.cmd("cd " .. vim.fn.fnameescape(original_cwd))
   manager.clear_repo_profile(repo_path)

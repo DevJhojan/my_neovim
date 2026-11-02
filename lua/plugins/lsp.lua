@@ -34,6 +34,12 @@ return {
         }
         vim.lsp.enable(server)
       end
+
+      -- El servidor GDScript viene integrado en Godot y debe estar ejecutándose.
+      vim.lsp.config.gdscript = {
+        capabilities = capabilities,
+      }
+      vim.lsp.enable("gdscript")
     end,
   },
 }

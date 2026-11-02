@@ -14,6 +14,14 @@ local profiles = {
   { name = "react-native", completion = "ts_ls", theme = { blue = 60, purple = 30, white = 10 } },
   { name = "bash", completion = "bashls", theme = { ["#16141F"] = 60, ["#E0DEF4"] = 30, ["#9CCFD8"] = 10 } },
   { name = "rust", completion = "rust_analyzer", theme = { ["#0F1A2B"] = 60, ["#EDE6D6"] = 30, ["#F74C3C"] = 10 } },
+  { name = "godot", completion = "gdscript", theme = {
+    background = "#141B26",
+    background_proportion = 60,
+    foreground = "#E3EAF2",
+    foreground_proportion = 30,
+    keyword = "#5FD4F4",
+    keyword_proportion = 10,
+  } },
 }
 
 for _, profile in ipairs(profiles) do
@@ -29,6 +37,7 @@ local replacements = {
   { previous = "react-native", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
   { previous = "bash", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
   { previous = "rust", selected = "django", completion = "django", theme = { orange = 60 } },
+  { previous = "godot", selected = "django", completion = "django", theme = { orange = 60 } },
 }
 for index, case in ipairs(replacements) do
   local repo_path = "/tmp/profile-replacement-spec-" .. index
@@ -43,6 +52,30 @@ for index, case in ipairs(replacements) do
   end
   manager.clear_repo_profile(repo_path)
 end
+
+-- Comprueba que Godot activa GDScript y aplica la paleta a los grupos reales de resaltado.
+local original_cwd_godot = vim.fn.getcwd()
+local godot_repo_path = "/tmp/godot-profile-activation-spec"
+manager.clear_repo_profile(godot_repo_path)
+vim.fn.mkdir(godot_repo_path, "p")
+vim.cmd("cd " .. vim.fn.fnameescape(godot_repo_path))
+manager.set_profile("godot", godot_repo_path)
+assert(vim.g.project_profile_completion == "gdscript", "expected GDScript completion provider")
+local normal_highlights = vim.api.nvim_get_hl(0, { name = "Normal" })
+local keyword_highlights = vim.api.nvim_get_hl(0, { name = "Keyword" })
+assert(normal_highlights.bg == 0x141B26, "expected Godot background color")
+assert(normal_highlights.fg == 0xE3EAF2, "expected Godot foreground color")
+assert(keyword_highlights.fg == 0x5FD4F4, "expected Godot keyword accent")
+manager.clear_repo_profile(godot_repo_path)
+vim.cmd("cd " .. vim.fn.fnameescape(original_cwd_godot))
+
+-- Comprueba que Neovim reconoce GDScript/escenas, tiene sintaxis y habilita su LSP.
+assert(vim.filetype.match({ filename = "script.gd" }) == "gdscript", "expected GDScript filetype")
+assert(vim.filetype.match({ filename = "scene.tscn" }) == "gdresource", "expected scene filetype")
+assert(vim.filetype.match({ filename = "resource.tres" }) == "gdresource", "expected resource filetype")
+assert(#vim.api.nvim_get_runtime_file("syntax/gdscript.vim", false) > 0, "expected GDScript syntax support")
+assert(#vim.api.nvim_get_runtime_file("syntax/gdresource.vim", false) > 0, "expected Godot scene syntax support")
+assert(vim.lsp.is_enabled("gdscript"), "expected GDScript language server to be enabled")
 
 -- Comprueba que limpiar el perfil activo del repositorio restaure el perfil predeterminado.
 local original_cwd = vim.fn.getcwd()

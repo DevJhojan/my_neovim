@@ -28,12 +28,34 @@ function M.get_profile_config(profile_name)
   return profile or M.PROFILES.default
 end
 
+local function apply_godot_theme(theme)
+  vim.api.nvim_set_hl(0, "Normal", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "Keyword", { fg = theme.keyword })
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    if vim.g.project_profile == "godot" then
+      apply_godot_theme(M.PROFILES.godot.theme)
+    end
+  end,
+})
+
 function M.apply_profile_config(profile_name)
+  local previous_profile = vim.g.project_profile
   local profile = M.get_profile_config(profile_name)
   vim.g.project_profile = profile_name or profile.name
   vim.g.project_profile_config = profile
   vim.g.project_profile_theme = profile.theme
   vim.g.project_profile_completion = profile.completion
+
+  if profile.name == "godot" then
+    apply_godot_theme(profile.theme)
+  elseif previous_profile == "godot" then
+    vim.cmd.colorscheme("catppuccin-mocha")
+  end
+
   return profile
 end
 

@@ -80,4 +80,17 @@ M.rust = {
   },
 }
 
+M.godot = {
+  name = "godot",
+  completion = "gdscript",
+  theme = {
+    background = "#141B26",
+    background_proportion = 60,
+    foreground = "#E3EAF2",
+    foreground_proportion = 30,
+    keyword = "#5FD4F4",
+    keyword_proportion = 10,
+  },
+}
+
 return M

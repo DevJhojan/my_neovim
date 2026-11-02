@@ -2,9 +2,9 @@
 Como usuario de Godot, quiero elegir un perfil con soporte para GDScript y archivos de escena, además de un tema propio por repositorio, para trabajar en mis proyectos Godot sin reconfigurar el editor.
 
 ## Acceptance criteria
-- [ ] Dado que un repositorio no tiene un perfil Godot guardado, cuando el usuario lo elige, entonces Neovim ofrece soporte de edición para GDScript (`.gd`) y archivos de escena/recursos (`.tscn`, `.tres`), incluyendo resaltado de sintaxis y, cuando corresponda, autocompletado, diagnósticos y navegación; además, aplica un tema con fondo azul medianoche `#141B26` (60%), texto blanco hielo `#E3EAF2` (30%) y acento cian eléctrico `#5FD4F4` (10%).
-- [ ] Dado que un repositorio ya tiene guardado el perfil Godot, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil y su configuración.
-- [ ] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil Godot deja de aplicarse allí y queda reemplazado por la configuración seleccionada.
+- [x] Dado que un repositorio no tiene un perfil Godot guardado, cuando el usuario lo elige, entonces Neovim ofrece soporte de edición para GDScript (`.gd`) y archivos de escena/recursos (`.tscn`, `.tres`), incluyendo resaltado de sintaxis y, cuando corresponda, autocompletado, diagnósticos y navegación; además, aplica un tema con fondo azul medianoche `#141B26` (60%), texto blanco hielo `#E3EAF2` (30%) y acento cian eléctrico `#5FD4F4` (10%).
+- [x] Dado que un repositorio ya tiene guardado el perfil Godot, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil y su configuración.
+- [x] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil Godot deja de aplicarse allí y queda reemplazado por la configuración seleccionada.
 
 ## Plan
 - Confirmar el flujo existente para guardar y restaurar perfiles por repositorio.
