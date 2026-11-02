@@ -50,4 +50,14 @@ M.react = {
   },
 }
 
+M["react-native"] = {
+  name = "react-native",
+  completion = "ts_ls",
+  theme = {
+    blue = 60,
+    purple = 30,
+    white = 10,
+  },
+}
+
 return M

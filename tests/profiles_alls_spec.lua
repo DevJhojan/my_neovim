@@ -11,6 +11,7 @@ local profiles = {
   { name = "django", completion = "django", theme = { orange = 60, green = 30, white = 10 } },
   { name = "typescript", completion = "ts_ls", theme = { blue = 60, cyan = 30, white = 10 } },
   { name = "react", completion = "ts_ls", theme = { blue = 60, lime = 30, white = 10 } },
+  { name = "react-native", completion = "ts_ls", theme = { blue = 60, purple = 30, white = 10 } },
 }
 
 for _, profile in ipairs(profiles) do
