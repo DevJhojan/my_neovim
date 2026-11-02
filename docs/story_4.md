@@ -2,9 +2,9 @@
 Como usuario de TypeScript, quiero elegir un perfil con autocompletado y tema propios para cada repositorio, para trabajar sin volver a configurar el editor.
 
 ## Acceptance criteria
-- [ ] Dado que un repositorio no tiene un perfil de TypeScript guardado, cuando el usuario elige el perfil de TypeScript, entonces Neovim aplica el autocompletado específico de TypeScript y un tema visual propio para ese proyecto con una proporción de 60% Azul, 30% purpura y 10% cian.
-- [ ] Dado que un repositorio ya tiene guardado el perfil de TypeScript, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin requerir que vuelva a seleccionarlo.
-- [ ] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil de TypeScript deja de aplicarse en ese proyecto y queda reemplazado por la nueva configuración seleccionada.
+- [x] Dado que un repositorio no tiene un perfil de TypeScript guardado, cuando el usuario elige el perfil de TypeScript, entonces Neovim aplica el autocompletado específico de TypeScript y un tema visual propio para ese proyecto con una proporción de 60% Azul, 30% cyan y 10% white.
+- [x] Dado que un repositorio ya tiene guardado el perfil de TypeScript, cuando el usuario lo vuelve a abrir, entonces Neovim restaura automáticamente ese perfil sin requerir que vuelva a seleccionarlo.
+- [x] Dado que el usuario cambia el perfil de un repositorio, cuando guarda la nueva elección, entonces el perfil de TypeScript deja de aplicarse en ese proyecto y queda reemplazado por la nueva configuración seleccionada.
 
 ## Plan
 - Confirmar la restauración del perfil por repositorio y la lógica de reemplazo ya usada en otros perfiles.
