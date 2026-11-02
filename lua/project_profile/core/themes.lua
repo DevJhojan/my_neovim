@@ -60,4 +60,14 @@ M["react-native"] = {
   },
 }
 
+M.bash = {
+  name = "bash",
+  completion = "bashls",
+  theme = {
+    ["#16141F"] = 60,
+    ["#E0DEF4"] = 30,
+    ["#9CCFD8"] = 10,
+  },
+}
+
 return M

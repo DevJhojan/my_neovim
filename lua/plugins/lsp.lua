@@ -13,6 +13,7 @@ return {
       local servers = {
         "pyright",       -- Python
         "ts_ls",         -- TypeScript / JavaScript (React y React Native)
+        "bashls",        -- Bash
         "html",          -- HTML / JSX / TSX base
         "cssls",         -- CSS (para estilos en componentes React)
         "sqlls",         -- SQL general / MySQL
