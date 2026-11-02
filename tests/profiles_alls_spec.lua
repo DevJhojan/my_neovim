@@ -26,6 +26,7 @@ local replacements = {
   { previous = "typescript", selected = "django", completion = "django", theme = { orange = 60 } },
   { previous = "react", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
   { previous = "react-native", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
+  { previous = "bash", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
 }
 for index, case in ipairs(replacements) do
   local repo_path = "/tmp/profile-replacement-spec-" .. index
