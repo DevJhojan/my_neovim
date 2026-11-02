@@ -13,6 +13,7 @@ local profiles = {
   { name = "react", completion = "ts_ls", theme = { blue = 60, lime = 30, white = 10 } },
   { name = "react-native", completion = "ts_ls", theme = { blue = 60, purple = 30, white = 10 } },
   { name = "bash", completion = "bashls", theme = { ["#16141F"] = 60, ["#E0DEF4"] = 30, ["#9CCFD8"] = 10 } },
+  { name = "rust", completion = "rust_analyzer", theme = { ["#0F1A2B"] = 60, ["#EDE6D6"] = 30, ["#F74C3C"] = 10 } },
 }
 
 for _, profile in ipairs(profiles) do

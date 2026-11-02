@@ -70,4 +70,14 @@ M.bash = {
   },
 }
 
+M.rust = {
+  name = "rust",
+  completion = "rust_analyzer",
+  theme = {
+    ["#0F1A2B"] = 60,
+    ["#EDE6D6"] = 30,
+    ["#F74C3C"] = 10,
+  },
+}
+
 return M
