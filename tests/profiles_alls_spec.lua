@@ -10,6 +10,7 @@ local profiles = {
   { name = "python", completion = "pyright", theme = { yellow = 60, blue = 30, white = 10 } },
   { name = "django", completion = "django", theme = { orange = 60, green = 30, white = 10 } },
   { name = "typescript", completion = "ts_ls", theme = { blue = 60, cyan = 30, white = 10 } },
+  { name = "react", completion = "ts_ls", theme = { blue = 60, lime = 30, white = 10 } },
 }
 
 for _, profile in ipairs(profiles) do
@@ -19,8 +20,9 @@ end
 
 -- Comprueba que elegir otro perfil sustituya la selección anterior.
 local replacements = {
-  { previous = "django", selected = "typescript" },
-  { previous = "typescript", selected = "django" },
+  { previous = "django", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
+  { previous = "typescript", selected = "django", completion = "django", theme = { orange = 60 } },
+  { previous = "react", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
 }
 for index, case in ipairs(replacements) do
   local repo_path = "/tmp/profile-replacement-spec-" .. index
@@ -29,6 +31,10 @@ for index, case in ipairs(replacements) do
   manager.set_profile(case.selected, repo_path)
   assert(manager.get_profile(repo_path) == case.selected, "expected new profile to replace previous")
   assert(vim.g.project_profile == case.selected, "expected replacement profile to become active")
+  assert(vim.g.project_profile_completion == case.completion, "expected replacement completion to become active")
+  for color, proportion in pairs(case.theme) do
+    assert(vim.g.project_profile_theme[color] == proportion, "expected replacement theme to become active")
+  end
   manager.clear_repo_profile(repo_path)
 end
 

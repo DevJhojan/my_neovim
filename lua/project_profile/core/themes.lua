@@ -40,4 +40,14 @@ M.typescript = {
   },
 }
 
+M.react = {
+  name = "react",
+  completion = "ts_ls",
+  theme = {
+    blue = 60,
+    lime = 30,
+    white = 10,
+  },
+}
+
 return M
