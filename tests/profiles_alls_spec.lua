@@ -89,6 +89,8 @@ local keyword_default = vim.api.nvim_get_hl(0, { name = "Keyword" })
 assert(normal_default.bg == 0x12070C, "expected default cyberpunk red background")
 assert(normal_default.fg == 0xF4E6E6, "expected default cyberpunk red foreground")
 assert(keyword_default.fg == 0xFF2E63, "expected default cyberpunk red accent")
+manager.set_profile("react-native", default_repo_path)
+assert(vim.g.colors_name == "catppuccin-mocha", "expected base colorscheme to be restored when leaving default")
 manager.clear_repo_profile(default_repo_path)
 vim.cmd("cd " .. vim.fn.fnameescape(original_cwd_default))
 

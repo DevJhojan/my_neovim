@@ -42,6 +42,13 @@ local function apply_godot_theme(theme)
   vim.api.nvim_set_hl(0, "Keyword", { fg = theme.keyword })
 end
 
+local function restore_base_colorscheme()
+  local scheme = vim.g.project_profile_base_colorscheme or vim.g.colors_name or "catppuccin-mocha"
+  if scheme and scheme ~= "" then
+    vim.cmd.colorscheme(scheme)
+  end
+end
+
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
     if vim.g.project_profile == "godot" then
@@ -55,6 +62,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 function M.apply_profile_config(profile_name)
   local previous_profile = vim.g.project_profile
   local profile = M.get_profile_config(profile_name)
+
+  if previous_profile == "default" and profile.name ~= "default" then
+    restore_base_colorscheme()
+  elseif profile.name == "default" and (previous_profile ~= "default" or not vim.g.project_profile_base_colorscheme) then
+    vim.g.project_profile_base_colorscheme = vim.g.colors_name or "catppuccin-mocha"
+  end
+
   vim.g.project_profile = profile_name or profile.name
   vim.g.project_profile_config = profile
   vim.g.project_profile_theme = profile.theme
@@ -66,12 +80,6 @@ function M.apply_profile_config(profile_name)
     apply_godot_theme(profile.theme)
   elseif previous_profile == "godot" then
     vim.cmd.colorscheme("catppuccin-mocha")
-  elseif previous_profile == "default" then
-    vim.api.nvim_set_hl(0, "Normal", { bg = nil, fg = nil })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = nil, fg = nil })
-    vim.api.nvim_set_hl(0, "Keyword", { fg = nil })
-    vim.api.nvim_set_hl(0, "Comment", { fg = nil })
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = nil, fg = nil })
   end
 
   return profile
