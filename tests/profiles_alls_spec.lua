@@ -69,6 +69,21 @@ if original_active_colorscheme then
 end
 manager.clear_repo_profile(transition_repo_path)
 
+-- Comprueba que Godot preserve el colorscheme activo si todavía no hay uno base guardado.
+local original_saved_scheme = vim.g.project_profile_base_colorscheme
+vim.g.project_profile_base_colorscheme = nil
+vim.cmd.colorscheme("habamax")
+manager.set_profile("python", transition_repo_path)
+manager.set_profile("godot", transition_repo_path)
+vim.cmd.colorscheme("catppuccin-mocha")
+manager.set_profile("default", transition_repo_path)
+assert(vim.g.colors_name == "habamax", "expected pre-Godot colorscheme to be restored when no base was saved")
+vim.g.project_profile_base_colorscheme = original_saved_scheme
+if original_active_colorscheme then
+  vim.cmd.colorscheme(original_active_colorscheme)
+end
+manager.clear_repo_profile(transition_repo_path)
+
 -- Comprueba que elegir otro perfil sustituya la selección anterior.
 local replacements = {
   { previous = "django", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
