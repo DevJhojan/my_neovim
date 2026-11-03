@@ -42,6 +42,8 @@ end
 
 -- Comprueba que cambiar de perfil y recargar el colorscheme conserve los fondos transparentes.
 local transition_repo_path = "/tmp/profile-transparent-transition-spec"
+local original_active_colorscheme = vim.g.colors_name
+local original_base_colorscheme = vim.g.project_profile_base_colorscheme
 manager.set_profile("default", transition_repo_path)
 manager.set_profile("python", transition_repo_path)
 vim.cmd.colorscheme("catppuccin-mocha")
@@ -53,13 +55,18 @@ manager.set_profile("typescript", transition_repo_path)
 for _, group in ipairs({ "Normal", "NormalFloat" }) do
   assert(vim.api.nvim_get_hl(0, { name = group }).bg == nil, "expected transparent " .. group .. " after switching from Godot")
 end
-local original_base_colorscheme = vim.g.project_profile_base_colorscheme
 vim.g.project_profile_base_colorscheme = "habamax"
 manager.set_profile("godot", transition_repo_path)
 manager.set_profile("typescript", transition_repo_path)
 assert(vim.g.colors_name == "habamax", "expected saved base colorscheme to be restored after leaving Godot")
-vim.g.project_profile_base_colorscheme = original_base_colorscheme
+manager.set_profile("godot", transition_repo_path)
 vim.cmd.colorscheme("catppuccin-mocha")
+manager.set_profile("default", transition_repo_path)
+assert(vim.g.colors_name == "habamax", "expected saved base colorscheme to be restored when leaving Godot for default")
+vim.g.project_profile_base_colorscheme = original_base_colorscheme
+if original_active_colorscheme then
+  vim.cmd.colorscheme(original_active_colorscheme)
+end
 manager.clear_repo_profile(transition_repo_path)
 
 -- Comprueba que elegir otro perfil sustituya la selección anterior.

@@ -72,7 +72,7 @@ function M.apply_profile_config(profile_name)
   local previous_profile = vim.g.project_profile
   local profile = M.get_profile_config(profile_name)
 
-  if profile.name == "default" and (previous_profile ~= "default" or not vim.g.project_profile_base_colorscheme) then
+  if profile.name == "default" and previous_profile ~= "godot" and (previous_profile ~= "default" or not vim.g.project_profile_base_colorscheme) then
     vim.g.project_profile_base_colorscheme = vim.g.colors_name or "catppuccin-mocha"
   end
 
@@ -81,7 +81,7 @@ function M.apply_profile_config(profile_name)
   vim.g.project_profile_theme = profile.theme
   vim.g.project_profile_completion = profile.completion
 
-  if previous_profile == "default" and profile.name ~= "default" then
+  if (previous_profile == "default" and profile.name ~= "default") or (previous_profile == "godot" and profile.name == "default") then
     restore_base_colorscheme()
   end
 
