@@ -28,6 +28,14 @@ function M.get_profile_config(profile_name)
   return profile or M.PROFILES.default
 end
 
+local function apply_default_theme(theme)
+  vim.api.nvim_set_hl(0, "Normal", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "Keyword", { fg = theme.accent })
+  vim.api.nvim_set_hl(0, "Comment", { fg = theme.secondary })
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = theme.background, fg = theme.foreground })
+end
+
 local function apply_godot_theme(theme)
   vim.api.nvim_set_hl(0, "Normal", { bg = theme.background, fg = theme.foreground })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = theme.background, fg = theme.foreground })
@@ -38,6 +46,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
     if vim.g.project_profile == "godot" then
       apply_godot_theme(M.PROFILES.godot.theme)
+    elseif vim.g.project_profile == "default" then
+      apply_default_theme(M.PROFILES.default.theme)
     end
   end,
 })
@@ -50,10 +60,18 @@ function M.apply_profile_config(profile_name)
   vim.g.project_profile_theme = profile.theme
   vim.g.project_profile_completion = profile.completion
 
-  if profile.name == "godot" then
+  if profile.name == "default" then
+    apply_default_theme(profile.theme)
+  elseif profile.name == "godot" then
     apply_godot_theme(profile.theme)
   elseif previous_profile == "godot" then
     vim.cmd.colorscheme("catppuccin-mocha")
+  elseif previous_profile == "default" then
+    vim.api.nvim_set_hl(0, "Normal", { bg = nil, fg = nil })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = nil, fg = nil })
+    vim.api.nvim_set_hl(0, "Keyword", { fg = nil })
+    vim.api.nvim_set_hl(0, "Comment", { fg = nil })
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = nil, fg = nil })
   end
 
   return profile

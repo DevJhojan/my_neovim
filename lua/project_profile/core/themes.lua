@@ -4,9 +4,14 @@ M.default = {
   name = "default",
   completion = "none",
   theme = {
-    black = 60,
-    Red = 30,
-    white = 10,
+    background = "#12070C",
+    background_proportion = 60,
+    foreground = "#F4E6E6",
+    foreground_proportion = 30,
+    accent = "#FF2E63",
+    accent_proportion = 10,
+    secondary = "#A4133C",
+    secondary_proportion = 10,
   },
 }
 

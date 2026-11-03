@@ -77,6 +77,21 @@ assert(#vim.api.nvim_get_runtime_file("syntax/gdscript.vim", false) > 0, "expect
 assert(#vim.api.nvim_get_runtime_file("syntax/gdresource.vim", false) > 0, "expected Godot scene syntax support")
 assert(vim.lsp.is_enabled("gdscript"), "expected GDScript language server to be enabled")
 
+-- Comprueba que el perfil predeterminado aplique la identidad cyberpunk roja cuando no hay un repositorio guardado.
+local original_cwd_default = vim.fn.getcwd()
+local default_repo_path = "/tmp/default-profile-cyberpunk-spec"
+manager.clear_repo_profile(default_repo_path)
+vim.fn.mkdir(default_repo_path, "p")
+vim.cmd("cd " .. vim.fn.fnameescape(default_repo_path))
+manager.set_profile("default", default_repo_path)
+local normal_default = vim.api.nvim_get_hl(0, { name = "Normal" })
+local keyword_default = vim.api.nvim_get_hl(0, { name = "Keyword" })
+assert(normal_default.bg == 0x12070C, "expected default cyberpunk red background")
+assert(normal_default.fg == 0xF4E6E6, "expected default cyberpunk red foreground")
+assert(keyword_default.fg == 0xFF2E63, "expected default cyberpunk red accent")
+manager.clear_repo_profile(default_repo_path)
+vim.cmd("cd " .. vim.fn.fnameescape(original_cwd_default))
+
 -- Comprueba que limpiar el perfil activo del repositorio restaure el perfil predeterminado.
 local original_cwd = vim.fn.getcwd()
 local clear_repo_path = "/tmp/profile-clear-active-spec"
@@ -87,9 +102,9 @@ manager.set_profile("react-native", clear_repo_path)
 manager.clear_repo_profile(clear_repo_path)
 assert(vim.g.project_profile == "default", "expected default profile after clearing active profile")
 assert(vim.g.project_profile_completion == "none", "expected default completion after clearing active profile")
-assert(vim.g.project_profile_theme.black == 60, "expected default theme after clearing active profile")
-assert(vim.g.project_profile_theme.Red == 30, "expected default red theme proportion after clearing active profile")
-assert(vim.g.project_profile_theme.white == 10, "expected default white theme proportion after clearing active profile")
+assert(vim.g.project_profile_theme.background == "#12070C", "expected default cyberpunk background after clearing active profile")
+assert(vim.g.project_profile_theme.foreground == "#F4E6E6", "expected default cyberpunk foreground after clearing active profile")
+assert(vim.g.project_profile_theme.accent == "#FF2E63", "expected default cyberpunk accent after clearing active profile")
 vim.cmd("cd " .. vim.fn.fnameescape(original_cwd))
 
 print("profiles_alls_spec: ok")
