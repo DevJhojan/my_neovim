@@ -3,7 +3,7 @@ Como usuario de Neovim, quiero que el perfil predeterminado tenga una interfaz v
 
 ## Acceptance criteria
 - [x] Dado un repositorio sin un perfil guardado o cuando no se ha seleccionado ningún perfil, cuando Neovim inicia, entonces se aplica el perfil predeterminado con un esquema visual cyberpunk en rojo que se distingue claramente del resto de perfiles.
-- [ ] Dado que el perfil predeterminado está activo, cuando el usuario abre el editor e interactúa con los elementos principales de la interfaz, entonces la interfaz usa una paleta coherente en tonos rojos con contraste legible para texto y elementos destacados.
+- [x] Dado que el perfil predeterminado está activo, cuando el usuario abre el editor e interactúa con los elementos principales de la interfaz, entonces la interfaz usa una paleta coherente en tonos rojos con contraste legible para texto y elementos destacados.
 - [x] Dado que el usuario vuelve a abrir Neovim en el mismo repositorio sin seleccionar otro perfil, cuando el editor restaura su estado, entonces el tema cyberpunk rojo predeterminado sigue activo hasta que elija un perfil específico del proyecto.
 
 ## Plan
