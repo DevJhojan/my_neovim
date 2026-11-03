@@ -29,6 +29,39 @@ for _, profile in ipairs(profiles) do
   verify_restore(profile)
 end
 
+-- Comprueba que todos los perfiles mantengan transparentes el editor y las ventanas flotantes.
+for index, profile_name in ipairs(manager.available_profiles) do
+  local repo_path = "/tmp/profile-transparent-floats-spec-" .. index
+  manager.set_profile(profile_name, repo_path)
+  local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+  local normal_float = vim.api.nvim_get_hl(0, { name = "NormalFloat" })
+  assert(normal.bg == nil, "expected transparent editor background for " .. profile_name)
+  assert(normal_float.bg == nil, "expected transparent floating background for " .. profile_name)
+  manager.clear_repo_profile(repo_path)
+end
+
+-- Comprueba que cambiar de perfil y recargar el colorscheme conserve los fondos transparentes.
+local transition_repo_path = "/tmp/profile-transparent-transition-spec"
+manager.set_profile("default", transition_repo_path)
+manager.set_profile("python", transition_repo_path)
+vim.cmd.colorscheme("catppuccin-mocha")
+for _, group in ipairs({ "Normal", "NormalFloat" }) do
+  assert(vim.api.nvim_get_hl(0, { name = group }).bg == nil, "expected transparent " .. group .. " after profile switch and colorscheme reload")
+end
+manager.set_profile("godot", transition_repo_path)
+manager.set_profile("typescript", transition_repo_path)
+for _, group in ipairs({ "Normal", "NormalFloat" }) do
+  assert(vim.api.nvim_get_hl(0, { name = group }).bg == nil, "expected transparent " .. group .. " after switching from Godot")
+end
+local original_base_colorscheme = vim.g.project_profile_base_colorscheme
+vim.g.project_profile_base_colorscheme = "habamax"
+manager.set_profile("godot", transition_repo_path)
+manager.set_profile("typescript", transition_repo_path)
+assert(vim.g.colors_name == "habamax", "expected saved base colorscheme to be restored after leaving Godot")
+vim.g.project_profile_base_colorscheme = original_base_colorscheme
+vim.cmd.colorscheme("catppuccin-mocha")
+manager.clear_repo_profile(transition_repo_path)
+
 -- Comprueba que elegir otro perfil sustituya la selección anterior.
 local replacements = {
   { previous = "django", selected = "typescript", completion = "ts_ls", theme = { cyan = 30 } },
@@ -63,7 +96,7 @@ manager.set_profile("godot", godot_repo_path)
 assert(vim.g.project_profile_completion == "gdscript", "expected GDScript completion provider")
 local normal_highlights = vim.api.nvim_get_hl(0, { name = "Normal" })
 local keyword_highlights = vim.api.nvim_get_hl(0, { name = "Keyword" })
-assert(normal_highlights.bg == 0x141B26, "expected Godot background color")
+assert(normal_highlights.bg == nil, "expected Godot transparent background")
 assert(normal_highlights.fg == 0xE3EAF2, "expected Godot foreground color")
 assert(keyword_highlights.fg == 0x5FD4F4, "expected Godot keyword accent")
 manager.clear_repo_profile(godot_repo_path)
@@ -86,7 +119,7 @@ vim.cmd("cd " .. vim.fn.fnameescape(default_repo_path))
 manager.set_profile("default", default_repo_path)
 local normal_default = vim.api.nvim_get_hl(0, { name = "Normal" })
 local keyword_default = vim.api.nvim_get_hl(0, { name = "Keyword" })
-assert(normal_default.bg == 0x12070C, "expected default cyberpunk red background")
+assert(normal_default.bg == nil, "expected default profile background to be transparent")
 assert(normal_default.fg == 0xF4E6E6, "expected default cyberpunk red foreground")
 assert(keyword_default.fg == 0xFF2E63, "expected default cyberpunk red accent")
 manager.set_profile("react-native", default_repo_path)

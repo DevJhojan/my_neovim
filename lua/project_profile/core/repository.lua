@@ -29,17 +29,25 @@ function M.get_profile_config(profile_name)
 end
 
 local function apply_default_theme(theme)
-  vim.api.nvim_set_hl(0, "Normal", { bg = theme.background, fg = theme.foreground })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE", fg = theme.foreground })
   vim.api.nvim_set_hl(0, "Keyword", { fg = theme.accent })
   vim.api.nvim_set_hl(0, "Comment", { fg = theme.secondary })
-  vim.api.nvim_set_hl(0, "CursorLine", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE", fg = theme.foreground })
 end
 
 local function apply_godot_theme(theme)
-  vim.api.nvim_set_hl(0, "Normal", { bg = theme.background, fg = theme.foreground })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = theme.background, fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", fg = theme.foreground })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE", fg = theme.foreground })
   vim.api.nvim_set_hl(0, "Keyword", { fg = theme.keyword })
+end
+
+local function apply_transparent_background()
+  for _, group in ipairs({ "Normal", "NormalFloat" }) do
+    local highlights = vim.api.nvim_get_hl(0, { name = group })
+    highlights.bg = "NONE"
+    vim.api.nvim_set_hl(0, group, highlights)
+  end
 end
 
 local function restore_base_colorscheme()
@@ -51,6 +59,7 @@ end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
+    apply_transparent_background()
     if vim.g.project_profile == "godot" then
       apply_godot_theme(M.PROFILES.godot.theme)
     elseif vim.g.project_profile == "default" then
@@ -81,9 +90,10 @@ function M.apply_profile_config(profile_name)
   elseif profile.name == "godot" then
     apply_godot_theme(profile.theme)
   elseif previous_profile == "godot" then
-    vim.cmd.colorscheme("catppuccin-mocha")
+    restore_base_colorscheme()
   end
 
+  apply_transparent_background()
   return profile
 end
 

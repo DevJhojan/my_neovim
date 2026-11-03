@@ -23,7 +23,7 @@ return function(profile)
   if profile.name == "godot" then
     local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
     local keyword = vim.api.nvim_get_hl(0, { name = "Keyword" })
-    assert(normal.bg == 0x141B26, "expected restored Godot background")
+    assert(normal.bg == nil, "expected restored Godot transparent background")
     assert(normal.fg == 0xE3EAF2, "expected restored Godot foreground")
     assert(keyword.fg == 0x5FD4F4, "expected restored Godot keyword accent")
   end
