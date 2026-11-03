@@ -13,4 +13,4 @@ Decisiones costosas: ninguna.
 7. [ok]Como usuario de Bash, quiero elegir un perfil con autocompletado y tema propios, para trabajar con asistencia contextual en mis scripts. Requiere: #1
 8. [ok]Como usuario de Rust, quiero elegir un perfil con autocompletado y tema propios, para desarrollar en Rust. Requiere: #1
 9. [ok]Como usuario de Godot, quiero elegir un perfil con soporte para GDScript y archivos de escena, además de un tema propio, para trabajar en mis proyectos de Godot. Requiere: #1
-10. Como usuario de Neovim, quiero que el perfil predeterminado tenga una interfaz visual cyberpunk en tonos rojos, para contar con un tema distintivo cuando no elija otro perfil. Requiere: #1
+10. [ok]Como usuario de Neovim, quiero que el perfil predeterminado tenga una interfaz visual cyberpunk en tonos rojos, para contar con un tema distintivo cuando no elija otro perfil. Requiere: #1
