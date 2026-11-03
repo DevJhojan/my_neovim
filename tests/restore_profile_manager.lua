@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Prueba la restauración automática del perfil al entrar de nuevo al repositorio.
 -- Recibe las expectativas del perfil desde profiles_alls_spec.lua.
 

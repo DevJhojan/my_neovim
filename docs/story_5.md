@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de React, quiero elegir un perfil con autocompletado y un tema propios para cada repositorio, para desarrollar aplicaciones React sin reconfigurar el editor.
 

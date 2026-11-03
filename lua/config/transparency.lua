@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- ~/.config/nvim/lua/config/transparency.lua (o directamente en tu init.lua)
 
 local function toggle_transparency()

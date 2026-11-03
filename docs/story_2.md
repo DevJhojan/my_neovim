@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Python, quiero elegir un perfil de Python con autocompletado y un tema propio para cada repositorio, para trabajar sin reconfigurar el editor.
 

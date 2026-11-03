@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario, quiero seleccionar y guardar un perfil de trabajo para cada repositorio y que Neovim lo recuerde al volver a abrirlo, para mantener asociado el perfil correcto a cada proyecto.
 

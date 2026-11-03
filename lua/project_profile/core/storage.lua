@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Almacena la relación entre repositorio y perfil seleccionado.
 -- La información se guarda en un JSON dentro del directorio de datos de Neovim.
 -- Este módulo se ocupa únicamente de leer y escribir ese archivo.

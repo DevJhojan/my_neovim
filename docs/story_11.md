@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Neovim, quiero que todos los perfiles de proyecto tengan fondos transparentes o con una transparencia aproximada del 90%, para mantener una interfaz visual ligera y consistente en todos mis repositorios.
 

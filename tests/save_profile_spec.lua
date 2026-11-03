@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Prueba el guardado y la activación inmediata de un perfil para un repositorio.
 -- Recibe las expectativas del perfil desde profiles_alls_spec.lua.
 

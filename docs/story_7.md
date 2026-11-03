@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Bash, quiero elegir un perfil con autocompletado y tema propios para cada repositorio, para trabajar con asistencia contextual en mis scripts.
 

@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- ~/.config/nvim/lua/config/options.lua
 local opt = vim.opt
 

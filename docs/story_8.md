@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Rust, quiero elegir un perfil con autocompletado y tema propios para cada repositorio, para desarrollar en Rust sin reconfigurar el editor.
 

@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 return {
   "catgoose/nvim-colorizer.lua",
   event = "BufReadPre",

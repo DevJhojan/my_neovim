@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Godot, quiero elegir un perfil con soporte para GDScript y archivos de escena, además de un tema propio por repositorio, para trabajar en mis proyectos Godot sin reconfigurar el editor.
 

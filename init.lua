@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 
 -- Cargar opciones básicas y atajos antes de los plugins
 require("config.options")

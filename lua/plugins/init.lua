@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- ~/.config/nvim/lua/plugins/init.lua
 return {
   -- Puedes colocar aquí plugins adicionales o dejarlo listo para importar otros archivos

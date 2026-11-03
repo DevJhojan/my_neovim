@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de React Native, quiero elegir un perfil con autocompletado y tema propios para cada repositorio, para desarrollar aplicaciones móviles sin reconfigurar el editor.
 

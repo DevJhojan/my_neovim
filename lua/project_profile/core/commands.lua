@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Comandos de usuario de acceso directo para elegir o limpiar el perfil.
 -- Este módulo registra los comandos de Neovim y delega la lógica a otros módulos.
 

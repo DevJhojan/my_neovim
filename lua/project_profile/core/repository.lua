@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Lógica de negocio para guardar y restaurar el perfil del repositorio.
 -- Este archivo se encarga solo de la relación entre la ruta del proyecto y su
 -- perfil activo, dejando la persistencia en storage.lua y los comandos en

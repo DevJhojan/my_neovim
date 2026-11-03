@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Context
 Configuración personal de Neovim para elegir y recordar perfiles de trabajo por repositorio, con el autocompletado adecuado y un tema propio para cada perfil. El tema cyberpunk en tonos rojos corresponde al perfil predeterminado.
 Stack: Neovim y Lua. Framework de pruebas: pendiente de elegir.

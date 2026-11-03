@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Módulo invocador: expone la API pública del perfil del proyecto.
 -- La lógica real se guarda en submódulos dentro de project_profile/core.
 

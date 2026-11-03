@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- ~/.config/nvim/lua/config/keymaps.lua
 vim.g.mapleader = " " -- Definir la tecla <leader> como la barra espaciadora
 

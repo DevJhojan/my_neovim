@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 # Configuración personal de Neovim
 
 Configuración de Neovim en Lua para elegir y recordar perfiles de trabajo por repositorio. Cada perfil guarda su selección, define metadatos de tema y un proveedor de autocompletado, y se restaura al abrir Neovim desde ese repositorio. Los fondos del editor y de las ventanas flotantes son transparentes; el perfil predeterminado usa acentos cyberpunk rojos.

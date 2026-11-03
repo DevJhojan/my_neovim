@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de TypeScript, quiero elegir un perfil con autocompletado y tema propios para cada repositorio, para trabajar sin volver a configurar el editor.
 

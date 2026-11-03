@@ -1,3 +1,4 @@
+-- Firma: @DevJhojan
 -- Punto de entrada de las pruebas de todos los perfiles.
 -- Mantiene las expectativas independientes de producción y delega guardar y
 -- restaurar en archivos con una única responsabilidad cada uno.

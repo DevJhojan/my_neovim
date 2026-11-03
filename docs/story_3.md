@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Django, quiero activar un perfil con autocompletado específico para Django y un tema propio para cada repositorio, para trabajar con asistencia contextual sin reconfigurar el editor.
 

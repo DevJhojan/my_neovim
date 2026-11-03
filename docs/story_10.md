@@ -1,3 +1,5 @@
+<!-- Firma: @DevJhojan -->
+
 ## Story
 Como usuario de Neovim, quiero que el perfil predeterminado tenga una interfaz visual cyberpunk en tonos rojos, para contar con un tema distintivo cuando no elija otro perfil.
 
